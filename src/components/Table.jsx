@@ -1,37 +1,47 @@
 import React, { useState } from "react";
 import EditModal from "./EditModal";
+import { useAlertContext } from "../context/AlertProvider";
 
 function Table({ tableTasks, deleteTask, putTask }) {
+  const { showToast } = useAlertContext();
   const [open, setOpen] = useState(false);
   const [item, setItem] = useState("");
 
   return (
-    <div className="mt-6 shadow-sm border rounded-lg overflow-x-auto">
+    <div className="mt-6 shadow-lg border rounded-lg overflow-x-auto">
       <table className="w-full table-auto text-sm text-left">
-        <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+        <thead className="bg-white text-gray-600 font-medium border-b sticky top-0">
           <tr>
-            <th className="py-3 px-56">Task</th>
-            <th className="py-3 px-6">Task Type</th>
-            <th className="py-3 px-12">Edit Delete</th>
+            <th className="py-3 px-4 sm:px-56">Task</th>
+            <th className="py-3 px-4 sm:px-6">Task Type</th>
+            <th className="py-3 px-4 sm:px-12">Edit Delete</th>
           </tr>
         </thead>
-        <tbody className="text-black-100 text-[1rem]  divide-y">
+        <tbody className="text-black-100 text-[1rem] divide-y">
           {tableTasks.map((item) => (
             <tr key={item.id}>
-              <td className="px-6 max-w-[200px] break-words py-4 whitespace-normal">
+              <td className="px-4 py-4 max-w-[100px] sm:max-w-[200px] break-words whitespace-normal">
                 {item.task}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">{item.taskType}</td>
-              <td className="text-right px-6 whitespace-nowrap">
+              <td className="px-4 py-4 whitespace-nowrap max-w-[100px] lg:max-w-[200px] ">
+                {item.taskType}
+              </td>
+              <td className="text-right px-4 sm:px-6 whitespace-nowrap">
                 <button
-                  onClick={() => {setOpen(true); setItem(item);}}
-                  className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                  onClick={() => {
+                    setOpen(true);
+                    setItem(item);
+                  }}
+                  className="py-2 px-2 sm:px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => deleteTask(item.id)}
-                  className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                  onClick={() => {
+                    deleteTask(item.id);
+                    showToast("Task deletion successful!", "success");
+                  }}
+                  className="py-2 px-2 sm:px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
                 >
                   Delete
                 </button>
@@ -40,7 +50,7 @@ function Table({ tableTasks, deleteTask, putTask }) {
           ))}
         </tbody>
       </table>
-      <EditModal open={open} setOpen={setOpen} putTask={putTask} item={item}/>
+      <EditModal open={open} setOpen={setOpen} putTask={putTask} item={item} />
     </div>
   );
 }

@@ -1,14 +1,18 @@
 import React, { useState } from "react";
+import { useAlertContext } from "../context/AlertProvider";
 
 function FormTask({ task, setTask, postTask }) {
+  const { showToast } = useAlertContext();
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (task.task.trim() !== "" && task.taskType.trim() !== "") {
+    if (task.task.trim() !== "") {
       postTask();
       setTask({ task: "", taskType: "Critical Task" });
+      showToast("Adding task successful!","success")
+
     } else {
-      alert("Formu doldurun");
+      showToast("Please fill in your task!","error")
     }
   };
 

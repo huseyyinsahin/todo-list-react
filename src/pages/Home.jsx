@@ -8,7 +8,7 @@ function Home() {
     useTaskContext();
 
   return (
-    <div className="h-[90vh] py-8 w-full flex items-center flex-col  bg-gray-100">
+    <div className="h-[95vh] py-8 w-full flex items-center flex-col  bg-gray-100">
       <FormTask task={task} setTask={setTask} postTask={postTask} />
       <Table
         tableTasks={tableTasks}
