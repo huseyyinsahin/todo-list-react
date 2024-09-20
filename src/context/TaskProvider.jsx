@@ -45,13 +45,25 @@ function TaskProvider({ children }) {
     }
   };
 
+  const putTask = async (newTask, id) => {
+    try {
+      await axios.put(
+        "https://66ec9aab2b6cf2b89c5ee33e.mockapi.io/todoList/" + id,
+        newTask
+      );
+      getTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getTask();
   }, []);
 
   return (
     <TaskContext.Provider
-      value={{ tableTasks, task, setTask, postTask, deleteTask }}
+      value={{ tableTasks, task, setTask, postTask, deleteTask, putTask }}
     >
       {children}
     </TaskContext.Provider>

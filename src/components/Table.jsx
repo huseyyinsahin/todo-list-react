@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import EditModal from "./EditModal";
 
-function Table({ tableTasks, deleteTask }) {
+function Table({ tableTasks, deleteTask, putTask }) {
+  const [open, setOpen] = useState(false);
+  const [item, setItem] = useState("");
+
   return (
     <div className="mt-6 shadow-sm border rounded-lg overflow-x-auto">
       <table className="w-full table-auto text-sm text-left">
@@ -19,7 +23,10 @@ function Table({ tableTasks, deleteTask }) {
               </td>
               <td className="px-6 py-4 whitespace-nowrap">{item.taskType}</td>
               <td className="text-right px-6 whitespace-nowrap">
-                <button className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg">
+                <button
+                  onClick={() => {setOpen(true); setItem(item);}}
+                  className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                >
                   Edit
                 </button>
                 <button
@@ -33,6 +40,7 @@ function Table({ tableTasks, deleteTask }) {
           ))}
         </tbody>
       </table>
+      <EditModal open={open} setOpen={setOpen} putTask={putTask} item={item}/>
     </div>
   );
 }
