@@ -8,7 +8,7 @@ export const useTaskContext = () => {
 };
 
 function TaskProvider({ children }) {
-  const [task, setTask] = useState({task: "", taskType: "Critical Task" });
+  const [task, setTask] = useState({ task: "", taskType: "Critical Task" });
   const [tableTasks, setTableTasks] = useState([]);
 
   const postTask = async () => {
@@ -34,12 +34,25 @@ function TaskProvider({ children }) {
     }
   };
 
+  const deleteTask = async (id) => {
+    try {
+      await axios.delete(
+        "https://66ec9aab2b6cf2b89c5ee33e.mockapi.io/todoList/" + id
+      );
+      getTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getTask();
   }, []);
 
   return (
-    <TaskContext.Provider value={{ tableTasks, task, setTask, postTask }}>
+    <TaskContext.Provider
+      value={{ tableTasks, task, setTask, postTask, deleteTask }}
+    >
       {children}
     </TaskContext.Provider>
   );

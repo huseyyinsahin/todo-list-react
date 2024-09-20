@@ -1,6 +1,6 @@
 import React from "react";
 
-function Table({ tableTasks }) {
+function Table({ tableTasks, deleteTask }) {
   return (
     <div className="mt-6 shadow-sm border rounded-lg overflow-x-auto">
       <table className="w-full table-auto text-sm text-left">
@@ -22,7 +22,10 @@ function Table({ tableTasks }) {
                 <button className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg">
                   Edit
                 </button>
-                <button className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg">
+                <button
+                  onClick={() => deleteTask(item.id)}
+                  className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                >
                   Delete
                 </button>
               </td>

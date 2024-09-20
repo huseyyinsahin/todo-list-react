@@ -4,7 +4,7 @@ import Table from "../components/Table";
 import { useTaskContext } from "../context/TaskProvider";
 
 function Home() {
-  const { tableTasks, task, setTask, postTask } =
+  const { tableTasks, task, setTask, postTask ,deleteTask} =
     useTaskContext();
 
   return (
@@ -14,7 +14,7 @@ function Home() {
         setTask={setTask}
         postTask={postTask}
       />
-      <Table tableTasks={tableTasks} />
+      <Table tableTasks={tableTasks} deleteTask={deleteTask} />
     </div>
   );
 }
