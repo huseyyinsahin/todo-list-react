@@ -1,8 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
 import { useAlertContext } from "../context/AlertProvider";
+import { useTaskContext } from "../context/TaskProvider";
 
-function EditModal({ open, setOpen, putTask, item }) {
+function EditModal({ open, setOpen, item }) {
+  const { putTask } = useTaskContext();
   const { showToast } = useAlertContext();
   const [editTask, setEditTask] = useState({});
 
@@ -22,10 +24,9 @@ function EditModal({ open, setOpen, putTask, item }) {
   const handleClick = () => {
     if (editTask.task.trim() !== "") {
       putTask(editTask, item.id);
-      showToast("Task editing successful!","success")
+      showToast("Task editing successful!", "success");
     } else {
-      showToast("Please fill in your task!","error")
-
+      showToast("Please fill in your task!", "error");
     }
   };
 

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import EditModal from "./EditModal";
 import { useAlertContext } from "../context/AlertProvider";
+import { useTaskContext } from "../context/TaskProvider";
 
-function Table({ tableTasks, deleteTask, putTask }) {
+function Table() {
+  const { tableTasks, deleteTask } = useTaskContext();
   const { showToast } = useAlertContext();
   const [open, setOpen] = useState(false);
   const [item, setItem] = useState("");
@@ -50,7 +52,7 @@ function Table({ tableTasks, deleteTask, putTask }) {
           ))}
         </tbody>
       </table>
-      <EditModal open={open} setOpen={setOpen} putTask={putTask} item={item} />
+      <EditModal open={open} setOpen={setOpen} item={item} />
     </div>
   );
 }

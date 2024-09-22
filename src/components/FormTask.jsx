@@ -1,7 +1,8 @@
-import React, { useState } from "react";
 import { useAlertContext } from "../context/AlertProvider";
+import { useTaskContext } from "../context/TaskProvider";
 
-function FormTask({ task, setTask, postTask }) {
+function FormTask() {
+  const { task, setTask, postTask } = useTaskContext();
   const { showToast } = useAlertContext();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -9,10 +10,9 @@ function FormTask({ task, setTask, postTask }) {
     if (task.task.trim() !== "") {
       postTask();
       setTask({ task: "", taskType: "Critical Task" });
-      showToast("Adding task successful!","success")
-
+      showToast("Adding task successful!", "success");
     } else {
-      showToast("Please fill in your task!","error")
+      showToast("Please fill in your task!", "error");
     }
   };
 
