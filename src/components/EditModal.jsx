@@ -4,7 +4,7 @@ import { useAlertContext } from "../context/AlertProvider";
 import { useTaskContext } from "../context/TaskProvider";
 
 function EditModal({ open, setOpen, item }) {
-  const { putTask } = useTaskContext();
+  const { updateTask } = useTaskContext();
   const { showToast } = useAlertContext();
   const [editTask, setEditTask] = useState({});
 
@@ -23,7 +23,7 @@ function EditModal({ open, setOpen, item }) {
 
   const handleClick = () => {
     if (editTask.task.trim() !== "") {
-      putTask(editTask, item.id);
+      updateTask(editTask, item.id);
       showToast("Task editing successful!", "success");
     } else {
       showToast("Please fill in your task!", "error");

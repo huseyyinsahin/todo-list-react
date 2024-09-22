@@ -1,14 +1,18 @@
+import { useState } from "react";
 import { useAlertContext } from "../context/AlertProvider";
 import { useTaskContext } from "../context/TaskProvider";
 
 function FormTask() {
-  const { task, setTask, postTask } = useTaskContext();
+  const { postTask } = useTaskContext();
   const { showToast } = useAlertContext();
+
+  const [task, setTask] = useState({ task: "", taskType: "Critical Task" });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (task.task.trim() !== "") {
-      postTask();
+      postTask(task);
       setTask({ task: "", taskType: "Critical Task" });
       showToast("Adding task successful!", "success");
     } else {

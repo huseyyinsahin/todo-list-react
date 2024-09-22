@@ -8,26 +8,21 @@ export const useTaskContext = () => {
 };
 
 function TaskProvider({ children }) {
-  const [task, setTask] = useState({ task: "", taskType: "Critical Task" });
   const [tableTasks, setTableTasks] = useState([]);
+  const url = "https://66ec9aab2b6cf2b89c5ee33e.mockapi.io/todoList";
 
-  const postTask = async () => {
+  const postTask = async (newTask) => {
     try {
-      await axios.post(
-        "https://66ec9aab2b6cf2b89c5ee33e.mockapi.io/todoList",
-        task
-      );
-      getTask();
+      await axios.post(url, newTask);
+      addTask();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const getTask = async () => {
+  const addTask = async () => {
     try {
-      const data = await axios(
-        "https://66ec9aab2b6cf2b89c5ee33e.mockapi.io/todoList"
-      );
+      const data = await axios(url);
       setTableTasks(data.data);
     } catch (error) {
       console.error(error);
@@ -36,34 +31,29 @@ function TaskProvider({ children }) {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(
-        "https://66ec9aab2b6cf2b89c5ee33e.mockapi.io/todoList/" + id
-      );
-      getTask();
+      await axios.delete(`${url}/${id}`);
+      addTask();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const putTask = async (newTask, id) => {
+  const updateTask = async (newTask, id) => {
     try {
-      await axios.put(
-        "https://66ec9aab2b6cf2b89c5ee33e.mockapi.io/todoList/" + id,
-        newTask
-      );
-      getTask();
+      await axios.put(`${url}/${id}`, newTask);
+      addTask();
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getTask();
+    addTask();
   }, []);
 
   return (
     <TaskContext.Provider
-      value={{ tableTasks, task, setTask, postTask, deleteTask, putTask }}
+      value={{ tableTasks, postTask, deleteTask, updateTask }}
     >
       {children}
     </TaskContext.Provider>
