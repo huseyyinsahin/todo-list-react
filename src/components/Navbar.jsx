@@ -1,8 +1,6 @@
-import { useState } from "react";
+import React from "react";
 
 export default () => {
-  const [state, setState] = useState(false);
-
   return (
     <nav className="bg-white w-full border-b md:border-0 md:static">
       <div className="items-center flex justify-between px-4 max-w-screen-xl mx-auto md:flex md:px-8">
